@@ -1,0 +1,52 @@
+/* ------- RESET ---------- */
+
+/* Box sizing rules */
+*, 
+*::before, 
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin */
+* {
+  margin: 0;
+}
+
+/* Set body line height */
+body {
+  line-height: 1.5;
+}
+
+/* Remove list styles (bullets) */
+ul {
+  list-style: none;
+}
+
+/* Remove default text decoration for anchor links */
+a {
+  text-decoration: none;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input, button,
+textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/* ------- UTILITY CLASSES ---------- */
+.container {
+  padding-inline: 2em;
+  margin-inline: auto;
+  max-width: 60rem;
+  margin-block-start: 5rem;
+}
+
+/* ------- COMPONENTS ---------- */
