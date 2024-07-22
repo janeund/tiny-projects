@@ -16,8 +16,9 @@
   --fw-regular: 400;
   --fw-bold: 700;
 
-  --fs-400: 1.125rem;
-  --fs-500: 1.25rem;
+  --fs-300: 1.125rem;
+  --fs-400: 1.25rem;
+  --fs-500: 1.625rem;
   --fs-600: 2rem;
   --fs-700: 2.75rem;
   --fs-800: 3rem;
@@ -44,8 +45,10 @@
 /* Set body properties */
 body {
   line-height: 1.5;
+  font-family: var(--ff-base);
   background-color: var(--clr-primary-900);
   color: var(--clr-neutral-100);
+  font-weight: var(--fw-bold);
 }
 
 /* Remove list styles (bullets) */
@@ -87,3 +90,25 @@ textarea, select {
 }
 
 /* ------- COMPONENTS ---------- */
+.content {
+  background-color: var(--clr-neutral-100);
+}
+
+.section-wrapper {
+  display: flex;
+}
+
+.heading-secondary {
+  font-size: var(--fs-400);
+  color: var(--clr-primary-500);
+}
+
+.tab {
+  background-color: var( --clr-primary-500);
+  font-size: var(--fs-500);
+  border-radius: var(--border-r-btn);
+}
+
+.selected {
+  background-color: var(--clr-primary-900);
+}
