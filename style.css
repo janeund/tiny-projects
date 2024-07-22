@@ -22,6 +22,9 @@
   --fs-700: 2.75rem;
   --fs-800: 3rem;
   --fs-900: 3.5rem;
+
+  --border-r-box: 1.25rem;
+  --border-r-btn: 1.625rem;
 }
 
 /* ------- RESET ---------- */
@@ -38,9 +41,11 @@
   margin: 0;
 }
 
-/* Set body line height */
+/* Set body properties */
 body {
   line-height: 1.5;
+  background-color: var(--clr-primary-900);
+  color: var(--clr-neutral-100);
 }
 
 /* Remove list styles (bullets) */
@@ -51,6 +56,12 @@ ul {
 /* Remove default text decoration for anchor links */
 a {
   text-decoration: none;
+}
+
+/* Style h1 text */
+h1 {
+  text-align: center;
+  font-size: var(--fs-700);
 }
 
 /* Make images easier to work with */
