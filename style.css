@@ -95,7 +95,7 @@ textarea, select {
 .container {
   padding-inline: 2em;
   margin-inline: auto;
-  max-width: 60rem;
+  max-width: 69rem;
   margin-block-start: 5rem;
 }
 
@@ -163,10 +163,6 @@ textarea, select {
 }
 
 /* game page */
-.game-content-container {
-  max-width: 50rem;
-  margin-inline: auto;
-}
 
 .header {
   display: flex;
