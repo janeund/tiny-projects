@@ -99,6 +99,14 @@ textarea, select {
   margin-block-start: 5rem;
 }
 
+.bg-light {
+  background-color: var(--clr-neutral-100);
+}
+
+.bg-dark {
+  background-color: var(--clr-primary-900);
+}
+
 /* ------- COMPONENTS ---------- */
 .content {
   display: flex;
@@ -129,6 +137,7 @@ textarea, select {
   font-size: var(--fs-500);
   padding: var(--size-100);
   border-radius: var(--border-r-btn);
+  cursor: pointer;
 }
 
 .selected {
@@ -140,7 +149,7 @@ textarea, select {
   border-radius: var(--border-r-btn);
   font-size:  var(--fs-500);
   font-weight: var(--fw-bold);
-  padding: var(--size-100);
+  padding: 0.81rem 1.81rem;
   background-color: var(--clr-accent-500);
   color: var(--clr-neutral-100);
   outline: none;
@@ -151,4 +160,110 @@ textarea, select {
 
 .btn:hover {
   background-color: var(--clr-accent-400);
+}
+
+/* game page */
+.game-content-container {
+  max-width: 50rem;
+  margin-inline: auto;
+}
+
+.header {
+  display: flex;
+  max-width: 69.375rem;
+  height: 3.25rem;
+  margin-inline: auto;
+  justify-content: space-between;
+  align-items: center;
+  padding-inline: 10rem;
+  margin-block: 4.19rem;
+}
+
+.buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.new-game-btn {
+  background-color: #DFE7EC;
+  color: var(--clr-primary-800);
+  font-size: var(--fs-400);
+}
+
+.restart-btn,
+.new-game-btn {
+  font-size: var(--fs-400);
+}
+
+.grid {
+  display: grid;
+  margin-inline: auto;
+  gap: 1rem;
+}
+
+.grid-4 {
+  max-width: 33.25rem;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.grid-6 {
+  max-width: 35.75rem;
+  grid-template-columns: repeat(6, 1fr);
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--size-900);
+  background-color: var(--clr-primary-800);
+  color: var(--clr-primary-300);
+  border-radius: 50%;
+}
+
+.card-active {
+  background-color: var(--clr-accent-500);
+  color: var(--clr-neutral-100);
+}
+
+.card-done {
+  background-color: var(--clr-primary-300);
+  color: var(--clr-neutral-100);
+}
+
+.card-4 {
+  width: 7.375rem;
+  height: 7.375rem;
+}
+
+.card-6 {
+  width: 5.125rem;
+  height: 5.125rem;
+}
+
+.actions {
+  max-width: 33.75rem;
+  margin-inline: auto;
+  display: flex;
+  gap: 1.875rem;
+}
+
+.actions-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 1.31rem 1.56rem;
+  border-radius: var(--border-r-box);
+  background-color: #DFE7EC;
+}
+
+.actions-name {
+  font-size: var(--size-200);
+  color: var(--clr-primary-500);
+}
+
+.actions-value {
+  font-size: var(--size-600);
+  color: var(--clr-primary-900);
 }

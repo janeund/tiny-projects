@@ -13,36 +13,57 @@
   <title>Memory Game</title>
 </head>
 
-<body>
-  <div class="container">
-    <h1 class="heading-main">memory</h1>
-    <div class="content">
+<body class="bg-light">
+  <!-- <div id="container" class="container"> -->
+  <!-- <h1 class="heading-main">memory</h1> -->
+  <!-- <div class="content">
       <div class="theme">
         <h2 class="heading-secondary">Select Theme</h2>
-        <div class="section-wrapper">
-          <div data-theme="numbers" class="theme-item tab selected">Numbers</div>
-          <div data-theme="icons" class="theme-item tab">Icons</div>
-        </div>
-      </div>
-      <div class="players">
-        <h2 class="heading-secondary">Numbers of Players</h2>
-        <div class="section-wrapper">
-          <div data-players="1" class="players-item tab">1</div>
-          <div data-players="2" class="players-item tab">2</div>
-          <div data-players="3" class="players-item tab">3</div>
-          <div data-players="4" class="players-item tab">4</div>
+        <div class="section-wrapper theme-wrapper">
+          <div data-type="theme" id="numbers" class="theme-item tab">Numbers</div>
+          <div data-type="theme" id="icons" class="theme-item tab">Icons</div>
         </div>
       </div>
       <div class="size">
         <h2 class="heading-secondary">Grid Size</h2>
-        <div class="section-wrapper">
-          <div data-size="4" class="size-item tab">4x4</div>
-          <div data-size="6" class="size-item tab">6x6</div>
+        <div class="section-wrapper size-wrapper">
+          <div data-type="size" id="4x4" class="size-item tab">4x4</div>
+          <div data-type="size" id="6x6" class="size-item tab">6x6</div>
         </div>
       </div>
-      <button class="btn btn-start" type="submit">Start Game</button>
+      <button id="btn-start" class="btn btn-start" type="submit">Start Game</button>
+    </div> -->
+  <!-- </div> -->
+  <header class="header">
+    <a href="/" class="logo">
+      <img src="./logo.svg" alt="memory">
+    </a>
+    <div class="buttons">
+      <button class="btn restart-btn">Restart</button>
+      <button class="btn new-game-btn">New Game</button>
+    </div>
+  </header>
+  <div class="game-content">
+    <div class="game-content-container container">
+      <div class="grid grid-6">
+        <div class="card card-6">2</div>
+      </div>
     </div>
   </div>
+  <footer class="footer">
+    <div class="footer-container container">
+      <div class="actions">
+        <div class="actions-item timer">
+          <p class="actions-name">Time</p>
+          <p class="actions-value">1:25</p>
+        </div>
+        <div class="actions-item moves-counter">
+          <p class="actions-name">Moves</p>
+          <p class="actions-value">15</p>
+        </div>
+      </div>
+    </div>
+  </footer>
   <script src="script.js"></script>
 </body>
 
