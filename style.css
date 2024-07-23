@@ -24,6 +24,16 @@
   --fs-800: 3rem;
   --fs-900: 3.5rem;
 
+  --size-100: 0.65rem;
+  --size-200: 1.125rem;
+  --size-300: 1.625rem;
+  --size-400: 1.625rem;
+  --size-500: 1.625rem;
+  --size-600: 2rem;
+  --size-700: 1.625rem;
+  --size-800: 1.625rem;
+  --size-900: 3.5rem;
+
   --border-r-box: 1.25rem;
   --border-r-btn: 1.625rem;
 }
@@ -91,24 +101,54 @@ textarea, select {
 
 /* ------- COMPONENTS ---------- */
 .content {
+  display: flex;
+  flex-direction: column;
+  margin-inline: auto;
+  max-width: 654px;
+  row-gap: var(--size-600);
+  padding: var(--size-900);
   background-color: var(--clr-neutral-100);
+  border-radius: var(--border-r-box);
 }
 
 .section-wrapper {
   display: flex;
+  column-gap: var(--size-200);
 }
 
 .heading-secondary {
   font-size: var(--fs-400);
   color: var(--clr-primary-500);
+  margin-block-end: var(--size-100);
 }
 
 .tab {
-  background-color: var( --clr-primary-500);
+  width: 100%;
+  text-align: center;
+  background-color: var( --clr-primary-300);
   font-size: var(--fs-500);
+  padding: var(--size-100);
   border-radius: var(--border-r-btn);
 }
 
 .selected {
   background-color: var(--clr-primary-900);
+}
+
+.btn {
+  display: block;
+  border-radius: var(--border-r-btn);
+  font-size:  var(--fs-500);
+  font-weight: var(--fw-bold);
+  padding: var(--size-100);
+  background-color: var(--clr-accent-500);
+  color: var(--clr-neutral-100);
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.btn:hover {
+  background-color: var(--clr-accent-400);
 }
