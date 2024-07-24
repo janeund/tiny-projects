@@ -1,3 +1,5 @@
+const icons = ['plane', 'star', 'lemon', 'tree', 'umbrella', 'pen', 'cloud', 'mountain-sun'];
+
 
 // Update page after click 'start game' depending on options selection
 const startGame = () => {
@@ -76,7 +78,7 @@ const displayGrid = (theme, size) => {
   body.insertBefore(container, body.firstChild);
   const headerTemplate = `
   <header class="header">
-      <a href="/" class="logo">
+      <a href="/memory-game/index.html" class="logo">
         <img src="./logo.svg" alt="memory">
       </a>
       <div class="buttons">
@@ -88,13 +90,26 @@ const displayGrid = (theme, size) => {
 
   const gameContainer = document.createElement('div');
   gameContainer.classList.add('grid', `grid-${size}`);
-  for (let i = 1; i < size * size + 1; i++) {
+  // const numbers = generateCardValue(size);
+  // Make the array of icons shuffled 
+  let shuffledCards = null;
+  if (theme === 'numbers') {
+    shuffledCards = shuffleCards(generateNumbers(size));
+  } else {
+    shuffledCards = shuffleCards([...icons,...icons]);
+  }
+
+  // Display pairs of numbers/icons on cards depending on chosen options
+  shuffledCards.forEach(el => {
     const card = document.createElement('div');
     card.classList.add('card', `card-${size}`);
-    card.textContent = Math.ceil(i / 2);
-    console.log(Math.round(i / 2));
+    if (theme === 'numbers') {
+      card.textContent = el;
+    } else {
+      card.innerHTML = `<i class="fa-solid fa-${el}"></i>`;
+    }
     gameContainer.appendChild(card);
-  }
+  })
 
   const footerTemplate = `
     <footer class="footer">
@@ -133,6 +148,31 @@ const setSelection = () => {
       }
     })
   });
+}
+
+// Generate random card value 
+const generateNumbers = (size) => {
+  // let cardsArrLength = size;
+  const values = [];
+  for (let i = size + size; i > 0; i--) {
+    let random = Math.floor(Math.random() * 100) + 1;
+    values.push(random, random);
+  }
+  return values; 
+}
+
+// Shuffle cards
+const shuffleCards = (arr) => {
+  let currentIndex = arr.length;
+  // While there are any elements in array...
+  while (currentIndex !== 0) {
+    // Pick a remaining element...
+    let randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+    // And swap it with the current element
+   [arr[currentIndex], arr[randomIndex]] = [arr[randomIndex], [arr[currentIndex]]]
+  }
+  return arr;
 }
 
 displaySelectionPage();
