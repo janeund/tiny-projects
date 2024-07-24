@@ -215,22 +215,47 @@ textarea, select {
 }
 
 .card {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position: relative;
   font-size: var(--size-900);
   background-color: var(--clr-primary-800);
   color: var(--clr-primary-300);
   border-radius: 50%;
+  cursor: pointer;
+}
+
+.front-face,
+.back-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.7s ease-out;
+  backface-visibility: hidden;
+  border-radius: 50%;
+}
+
+.front-face {
+  background-color: var(--clr-primary-800);  
+}
+
+.back-face {
+  background-color: var(--clr-primary-300);
+  transform: rotateY(180deg);
+  color: var(--clr-neutral-100);
+}
+
+.card.flipped .front-face {
+  transform: rotateY(180deg);
+}
+
+.card.flipped .back-face {
+  transform: rotateY(0deg);
 }
 
 .card-active {
   background-color: var(--clr-accent-500);
-  color: var(--clr-neutral-100);
-}
-
-.card-done {
-  background-color: var(--clr-primary-300);
   color: var(--clr-neutral-100);
 }
 

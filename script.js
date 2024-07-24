@@ -77,8 +77,6 @@ const displaySelectionPage = () => {
   document.querySelector('#btn-start').addEventListener('click', startGame);
 }
 
-
-
 // Display game page content depending on options selected
 const displayGrid = (theme, size) => {
   const body = document.body;
@@ -111,13 +109,18 @@ const displayGrid = (theme, size) => {
   }
 
   // Display pairs of numbers/icons on cards depending on chosen options
-  shuffledCards.forEach(el => {
+  shuffledCards.forEach((el, i) => {
     const card = document.createElement('div');
     card.classList.add('card', `card-${size}`);
+    card.setAttribute('data-name', el);
     if (theme === 'numbers') {
-      card.textContent = el;
+      card.innerHTML = `
+       <div class='front-face'></div>
+       <div class='back-face'>${el}</div>`;
     } else {
-      card.innerHTML = `<i class="fa-solid fs-600 fa-${el}"></i>`;
+      card.innerHTML = `
+       <div class='front-face'></div>
+       <div class='back-face'><i class="fa-solid fs-600 fa-${el}"></i></div>`;
     }
     gameContainer.appendChild(card);
   })
@@ -141,7 +144,32 @@ const displayGrid = (theme, size) => {
   container.insertAdjacentHTML('afterbegin', headerTemplate); 
   container.insertAdjacentElement('beforeend', gameContainer); 
   container.insertAdjacentHTML('beforeend', footerTemplate); 
+  cardClickHandler();
 }
+
+// Click on card
+const cardClickHandler = () => {
+  const cardsContainer = document.querySelector('.grid');
+  let match = [];
+  let clicked = [];
+  cardsContainer.addEventListener('click', (e) => {
+    let clickedCard = e.target.parentElement;
+    if (clickedCard.classList.contains('card')) {
+      clickedCard.classList.toggle('flipped')
+      clicked.push(clickedCard)
+      match.push(clickedCard.dataset.name);
+      if (match.length > 2) {
+        match.length = 0
+        clicked.forEach(item => item.classList.remove('flipped'))
+        clicked.length = 0
+      }
+    }
+    
+    console.log(match, clicked);
+
+  })
+}
+
 
 // Switch between selected tabs on each section
 const setSelection = () => {
