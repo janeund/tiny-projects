@@ -117,7 +117,7 @@ const displayGrid = (theme, size) => {
     if (theme === 'numbers') {
       card.textContent = el;
     } else {
-      card.innerHTML = `<i class="fa-solid fa-${el}"></i>`;
+      card.innerHTML = `<i class="fa-solid fs-600 fa-${el}"></i>`;
     }
     gameContainer.appendChild(card);
   })
