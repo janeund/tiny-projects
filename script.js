@@ -1,4 +1,14 @@
-const icons = ['plane', 'star', 'lemon', 'tree', 'umbrella', 'pen', 'cloud', 'mountain-sun'];
+const icons = [
+  'plane', 'star', 'lemon', 'tree', 
+  'umbrella', 'pen', 'cloud', 'mountain-sun', 
+  'plane', 'star', 'lemon', 'tree', 'umbrella', 
+  'pen', 'cloud', 'mountain-sun', 
+  'plane', 'star', 'lemon', 'tree', 'umbrella', 
+  'pen', 'cloud', 'mountain-sun', 
+  'plane', 'star', 'lemon', 'tree', 'umbrella', 
+  'pen', 'cloud', 'mountain-sun', 
+];
+
 
 
 // Update page after click 'start game' depending on options selection
@@ -96,6 +106,7 @@ const displayGrid = (theme, size) => {
   if (theme === 'numbers') {
     shuffledCards = shuffleCards(generateNumbers(size));
   } else {
+    icons.length = size * size / 2;
     shuffledCards = shuffleCards([...icons,...icons]);
   }
 
@@ -154,7 +165,7 @@ const setSelection = () => {
 const generateNumbers = (size) => {
   // let cardsArrLength = size;
   const values = [];
-  for (let i = size + size; i > 0; i--) {
+  for (let i = size * size / 2; i > 0; i--) {
     let random = Math.floor(Math.random() * 100) + 1;
     values.push(random, random);
   }
