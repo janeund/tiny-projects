@@ -144,30 +144,44 @@ const displayGrid = (theme, size) => {
   container.insertAdjacentHTML('afterbegin', headerTemplate); 
   container.insertAdjacentElement('beforeend', gameContainer); 
   container.insertAdjacentHTML('beforeend', footerTemplate); 
-  cardClickHandler();
+  cardClickHandler(size * size / 2);
 }
 
 // Click on card
-const cardClickHandler = () => {
+const cardClickHandler = (size) => {
   const cardsContainer = document.querySelector('.grid');
   let match = [];
   let clicked = [];
+  // Array of nested arrays with correct flipped pairs of cards
+  let correct = [];
   cardsContainer.addEventListener('click', (e) => {
     let clickedCard = e.target.parentElement;
-    if (clickedCard.classList.contains('card')) {
-      clickedCard.classList.toggle('flipped')
-      clicked.push(clickedCard)
-      match.push(clickedCard.dataset.name);
-      if (match.length > 2) {
-        match.length = 0
-        clicked.forEach(item => item.classList.remove('flipped'))
-        clicked.length = 0
+      if (clickedCard.classList.contains('card')) {
+        clickedCard.classList.toggle('flipped')
+        clicked.push(clickedCard);
+        match.push(clickedCard.dataset.name);
+        // If pairs of clicked (flipped) cards are not matched, then flipped them back after 1sec
+        // otherwise keep both flipped and add to "correct" array
+        if (match.length >= 2 && match[0] !== match[1]) {
+          clicked.forEach(item => setTimeout(() => item.classList.remove('flipped'), 1000));
+          match.length = 0;
+          clicked.length = 0;
+        } else if (match[0] === match[1]) {
+          correct.push([clickedCard.dataset.name, clickedCard.dataset.name]);
+          match.length = 0;
+          clicked.length = 0;
+        } 
+        console.log(match, clicked, correct.length, size);
+        if (correct.length === size && clicked.length === 0) {
+          setTimeout(() => showModal, 1500)
+        }
       }
-    }
-    
-    console.log(match, clicked);
-
   })
+}
+
+// Show modal with results if all cards pairs are flipped
+const showModal = () => {
+
 }
 
 
