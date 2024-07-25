@@ -295,3 +295,55 @@ textarea, select {
   font-size: var(--size-600);
   color: var(--clr-primary-900);
 }
+
+/* modal */
+.modal {
+  background-color: rgba(0,0,0,0.4);
+  position: fixed;
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; 
+}
+
+.modal-inner {
+  margin-inline: auto;
+  margin-block-start: 10%;
+  max-width: 40rem;
+  background-color: var(--clr-neutral-100);
+  text-align: center;
+  padding: 3rem;
+  border-radius: var(--border-r-box);
+}
+
+.modal-heading {
+  font-size: var(--fs-600);
+  color: var(--clr-primary-900);
+}
+
+.modal-text {
+  color: var(--clr-primary-300);
+  margin-block-end: 2rem;
+}
+
+.actions-modal {
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 100%;
+  margin-block-end: 2.2rem;
+}
+
+.actions-item-modal {
+  width: 100%;
+}
+
+.buttons-modal {
+  min-width: 100%;
+  justify-content: center;
+}
+
+.btn-modal {
+  width: 100%;
+  display: block;
+}
