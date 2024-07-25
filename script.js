@@ -172,8 +172,8 @@ const cardClickHandler = (size) => {
           clicked.length = 0;
         } 
         console.log(match, clicked, correct.length, size);
-        if (correct.length === size && clicked.length === 0) {
-          setTimeout(() => showModal, 1500)
+        if (correct.length === 8 && clicked.length === 0) {
+          setTimeout(() => showModal(), 1500)
         }
       }
   })
@@ -181,7 +181,28 @@ const cardClickHandler = (size) => {
 
 // Show modal with results if all cards pairs are flipped
 const showModal = () => {
-
+  const modal = document.createElement('div');
+  modal.classList.add('modal');
+  modal.innerHTML = `
+  <div class="modal-inner">
+      <h3 class="modal-heading">You did it!</h3>
+      <p class="modal-text">Game over! Here’s how you got on…</p>
+      <div class="actions actions-modal">
+        <div class="actions-item actions-item-modal timer">
+          <p class="actions-name">Time Elapsed</p>
+          <p class="actions-value">1:25</p>
+        </div>
+        <div class="actions-item actions-item-modal moves-counter">
+          <p class="actions-name">Moves Taken</p>
+          <p class="actions-value">15 Moves</p>
+        </div>
+      </div>
+      <div class="buttons buttons-modal">
+        <button class="btn restart-btn btn-modal">Restart</button>
+        <button class="btn new-game-btn btn-modal">Setup New Game</button>
+      </div>
+    </div>`;
+    document.querySelector('.container').appendChild(modal);
 }
 
 
