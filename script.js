@@ -9,7 +9,14 @@ const icons = [
   'pen', 'cloud', 'mountain-sun', 
 ];
 
+// Init timer after start button clicked and grid of cards appeared
 
+// Init moves counter
+// const initMovesCounter = () => {
+//   let movesCounter = 0;
+
+
+// }
 
 // Update page after click 'start game' depending on options selection
 const startGame = () => {
@@ -26,25 +33,9 @@ const startGame = () => {
     }
   })
   console.log(selectedTabs);
-
-  gameVersion(selectedTabs.theme, selectedTabs.size);
+  displayGrid(selectedTabs.theme, selectedTabs.size);
 }
 
-// Initilize game with selected options
-const gameVersion = (theme, size) => {
-  if (theme === 'numbers' && size === '4x4') {
-    displayGrid('numbers', 4)
-  }
-  if (theme === 'numbers' && size === '6x6') {
-    displayGrid('numbers', 6)
-  }
-  if (theme === 'icons' && size === '4x4') {
-    displayGrid('icons', 4)
-  }
-  if (theme === 'icons' && size === '6x6') {
-    displayGrid('icons', 6)
-  }
-}
 
 // Display starting page for theme and size selection
 const displaySelectionPage = () => {
@@ -66,8 +57,8 @@ const displaySelectionPage = () => {
     <div class="size">
       <h2 class="heading-secondary">Grid Size</h2>
       <div class="section-wrapper size-wrapper">
-        <div data-type="size" id="4x4" class="size-item tab">4x4</div>
-        <div data-type="size" id="6x6" class="size-item tab">6x6</div>
+        <div data-type="size" id="4" class="size-item tab">4x4</div>
+        <div data-type="size" id="6" class="size-item tab">6x6</div>
       </div>
     </div>
     <button id="btn-start" class="btn btn-start" type="submit">Start Game</button>
@@ -81,6 +72,7 @@ const displaySelectionPage = () => {
 const displayGrid = (theme, size) => {
   const body = document.body;
   body.innerHTML = '';
+  body.classList.add('bg-light');
   const container = document.createElement('div'); 
   container.classList.add('container');
   body.insertBefore(container, body.firstChild);
@@ -113,6 +105,7 @@ const displayGrid = (theme, size) => {
     const card = document.createElement('div');
     card.classList.add('card', `card-${size}`);
     card.setAttribute('data-name', el);
+    card.setAttribute('id', i);
     if (theme === 'numbers') {
       card.innerHTML = `
        <div class='front-face'></div>
@@ -130,8 +123,11 @@ const displayGrid = (theme, size) => {
       <div class="footer-container container">
         <div class="actions">
           <div class="actions-item timer">
-            <p class="actions-name">Time</p>
-            <p class="actions-value">1:25</p>
+            <div class="actions-name">Time</div>
+            <div id='timer-progress' class="actions-value">
+            <span id='min' class='min'>00:00</span>
+            <span id='sec' class='sec'></span>
+            </div>
           </div>
           <div class="actions-item moves-counter">
             <p class="actions-name">Moves</p>
@@ -156,25 +152,29 @@ const cardClickHandler = (size) => {
   let correct = [];
   cardsContainer.addEventListener('click', (e) => {
     let clickedCard = e.target.parentElement;
-      if (clickedCard.classList.contains('card')) {
-        clickedCard.classList.toggle('flipped')
-        clicked.push(clickedCard);
-        match.push(clickedCard.dataset.name);
-        // If pairs of clicked (flipped) cards are not matched, then flipped them back after 1sec
-        // otherwise keep both flipped and add to "correct" array
-        if (match.length >= 2 && match[0] !== match[1]) {
-          clicked.forEach(item => setTimeout(() => item.classList.remove('flipped'), 1000));
-          match.length = 0;
-          clicked.length = 0;
-        } else if (match[0] === match[1]) {
-          correct.push([clickedCard.dataset.name, clickedCard.dataset.name]);
-          match.length = 0;
-          clicked.length = 0;
-        } 
-        console.log(match, clicked, correct.length, size);
-        if (correct.length === 8 && clicked.length === 0) {
-          setTimeout(() => showModal(), 1500)
-        }
+    if (clickedCard.classList.contains('card')) {
+      clickedCard.classList.toggle('flipped')
+      clicked.push(clickedCard);
+      match.push({name: clickedCard.dataset.name, id: clickedCard.id});
+      // If pairs of clicked (flipped) cards are not matched, then flipped them back after 1sec
+      // otherwise keep both flipped and add to "correct" array
+      if (match.length === 2 && match[0].name !== match[1].name) {
+        clicked.forEach(item => setTimeout(() => item.classList.remove('flipped'), 1000));
+        match.length = 0;
+        clicked.length = 0;
+      } else if (match.length === 2 && match[0].name === match[1].name && match[0].id === match[1].id) {
+        match.length = 0;
+        clicked.length = 0;
+        // correct.push([clickedCard.dataset.name, clickedCard.dataset.name]);
+      } else if (match.length === 2 && match[0].name === match[1].name && match[0].id !== match[1].id) {
+        match.length = 0;
+        clicked.length = 0;
+        correct.push([clickedCard.dataset.name, clickedCard.dataset.name]);
+      }
+    }
+      console.log(match, clicked, correct, correct.length, size);
+      if (correct.length === size && clicked.length === 0) {
+        setTimeout(() => showModal(), 1500)
       }
   })
 }
