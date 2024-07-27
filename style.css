@@ -94,7 +94,8 @@ textarea, select {
 }
 
 /* ------- UTILITY CLASSES ---------- */
-.container {
+.container,
+.container-game {
   padding-inline: 2em;
   margin-inline: auto;
   max-width: 69rem;
@@ -131,6 +132,10 @@ textarea, select {
   column-gap: var(--size-200);
 }
 
+.heading-main {
+  margin-block-end: 2rem;
+}
+
 .heading-secondary {
   font-size: var(--fs-400);
   color: var(--clr-primary-500);
@@ -140,16 +145,22 @@ textarea, select {
 .tab {
   width: 100%;
   text-align: center;
-  background-color: var( --clr-primary-300);
+  background-color: var(--clr-primary-300);
   font-size: var(--fs-400);
   padding: var(--size-100);
   border-radius: var(--border-r-btn);
   cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.tab:hover {
+  background-color: var(--clr-primary-500);
 }
 
 .selected {
   background-color: var(--clr-primary-900);
 }
+
 
 .btn {
   display: block;
@@ -351,4 +362,10 @@ textarea, select {
 .btn-modal {
   width: 100%;
   display: block;
+}
+
+.min,
+.sec {
+  display: inline-block;
+  min-width: 2.7rem;
 }

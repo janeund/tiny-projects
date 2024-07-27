@@ -1,3 +1,10 @@
+// Issues list - TODO
+// fix (remove) hover effect on selection page tabs, which are already selected
+// fix timer bag (after starting new game, timer counts very fast)
+// fix counter bag (after restarting, counter return to 1, not 0, and only after first click, not immediately)
+// check values of moves and time elapsed on end game modal window
+// add responsive design, check sises (6X6 font size for is giant, and grid gap is too huge)
+
 const icons = [
   'plane', 'star', 'lemon', 'tree', 
   'umbrella', 'pen', 'cloud', 'mountain-sun', 
@@ -181,8 +188,8 @@ const displayGrid = (theme, size) => {
           <div class="actions-item timer">
             <div class="actions-name">Time</div>
             <div id='timer-progress' class="actions-value">
-            <span id='min' class='min'></span>
-            <span id='sec' class='sec'></span>
+            <span id='min' class='min'>00</span> : 
+            <span id='sec' class='sec'>00</span>
             </div>
           </div>
           <div class="actions-item moves-counter">
