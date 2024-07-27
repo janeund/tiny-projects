@@ -9,38 +9,56 @@ const icons = [
   'pen', 'cloud', 'mountain-sun', 
 ];
 
-// Init timer after start button clicked and grid of cards appeared
-
-// Init moves counter
-// const initMovesCounter = () => {
-//   let movesCounter = 0;
-
-
-// }
-
-// Update page after click 'start game' depending on options selection
-const startGame = () => {
-  const tabs = document.querySelectorAll('.tab');
-  let selectedTabs = {
-    theme: null,
-    size: null,
-  };
-  tabs.forEach(tab => {
-    if (tab.classList.contains('selected') && tab.dataset.type === 'theme') {
-      selectedTabs.theme = tab.id
-    } else if (tab.classList.contains('selected') && tab.dataset.type === 'size') {
-      selectedTabs.size = tab.id
-    }
-  })
-  console.log(selectedTabs);
-  displayGrid(selectedTabs.theme, selectedTabs.size);
+// Moves counter
+let movesCount = 0;
+const moveCounter = () => {
+  const moves = document.querySelector('.moves')
+  movesCount++;
+  moves.innerHTML = movesCount; 
 }
 
+// Init timer after start button clicked and grid of cards appeared
+let totalSec = 0;
+const timeCounter = () => {
+  const min = document.getElementById('min');
+  const sec = document.getElementById('sec');
+  ++totalSec;
+  sec.innerHTML = pad(totalSec % 60);
+  min.innerHTML = pad(parseInt(totalSec / 60));
+}
+
+// Validate timer (add 0s before min and sec values)
+const pad = (val) => {
+  let valToStr = val + '';
+  if (valToStr.length < 2) {
+    return valToStr = '0' + valToStr
+  } else {
+    return valToStr
+  }
+}
+
+// Restart game
+const restart = () => {
+  const cards = document.querySelectorAll('.card');
+  cards.forEach(item => item.classList.remove('flipped'));
+  totalSec = 0;
+  movesCount = 0;
+}
+
+// Init new game
+const newGame = () => {
+  displaySelectionPage();
+  totalSec = 0;
+  movesCount = 0;
+}
 
 // Display starting page for theme and size selection
 const displaySelectionPage = () => {
-  const container = document.createElement('div');
   const body = document.body;
+  body.innerHTML = '';
+  const container = document.createElement('div');
+  body.classList.remove('bg-light');
+  body.classList.add('bg-dark');
   container.classList.add('container');
   body.insertBefore(container, body.firstChild);
 
@@ -65,16 +83,54 @@ const displaySelectionPage = () => {
   </div>
   `; 
   container.insertAdjacentHTML('afterbegin', template);
+  setSelection();
   document.querySelector('#btn-start').addEventListener('click', startGame);
+}
+
+// Switch between selected tabs on each section
+const setSelection = () => {
+  const sectionWrappers = document.querySelectorAll('.section-wrapper');
+  const themeTabs = document.querySelectorAll('.theme .tab');
+  const sizeTabs = document.querySelectorAll('.size .tab');
+  sectionWrappers.forEach(wrapper => {
+    wrapper.addEventListener('click', (e) => {
+      if (e.target.classList.contains('theme-item')) {
+        themeTabs.forEach(tab => tab.classList.remove('selected'))
+        e.target.classList.add('selected')
+      } else if (e.target.classList.contains('size-item')) {
+        sizeTabs.forEach(tab => tab.classList.remove('selected'))
+        e.target.classList.add('selected')
+      }
+    })
+  });
+}
+
+// Update page after click 'start game' depending on options selection
+const startGame = () => {
+  const tabs = document.querySelectorAll('.tab');
+  let selectedTabs = {
+    theme: null,
+    size: null,
+  };
+  tabs.forEach(tab => {
+    if (tab.classList.contains('selected') && tab.dataset.type === 'theme') {
+      selectedTabs.theme = tab.id
+    } else if (tab.classList.contains('selected') && tab.dataset.type === 'size') {
+      selectedTabs.size = tab.id
+    }
+  })
+  console.log(selectedTabs);
+  displayGrid(selectedTabs.theme, selectedTabs.size);
 }
 
 // Display game page content depending on options selected
 const displayGrid = (theme, size) => {
   const body = document.body;
   body.innerHTML = '';
+  body.classList.remove('bg-dark');
   body.classList.add('bg-light');
   const container = document.createElement('div'); 
-  container.classList.add('container');
+  container.classList.add('container-game');
   body.insertBefore(container, body.firstChild);
   const headerTemplate = `
   <header class="header">
@@ -125,13 +181,13 @@ const displayGrid = (theme, size) => {
           <div class="actions-item timer">
             <div class="actions-name">Time</div>
             <div id='timer-progress' class="actions-value">
-            <span id='min' class='min'>00:00</span>
+            <span id='min' class='min'></span>
             <span id='sec' class='sec'></span>
             </div>
           </div>
           <div class="actions-item moves-counter">
             <p class="actions-name">Moves</p>
-            <p class="actions-value">15</p>
+            <p class="actions-value moves">0</p>
           </div>
         </div>
       </div>
@@ -141,15 +197,26 @@ const displayGrid = (theme, size) => {
   container.insertAdjacentElement('beforeend', gameContainer); 
   container.insertAdjacentHTML('beforeend', footerTemplate); 
   cardClickHandler(size * size / 2);
+
+  const restartBtn = document.querySelector('.restart-btn');
+  const newGameBtn = document.querySelector('.new-game-btn');
+  restartBtn.addEventListener('click', restart);
+  newGameBtn.addEventListener('click', newGame);
+  
+  
+  setInterval(timeCounter, 1000);
 }
 
 // Click on card
 const cardClickHandler = (size) => {
   const cardsContainer = document.querySelector('.grid');
+  // Array of matched cards objects (!> 2)
   let match = [];
+  // Array of clicked DOM elements (!> 2)
   let clicked = [];
-  // Array of nested arrays with correct flipped pairs of cards
+  // Array of nested arrays with correct flipped pairs of cards (names)
   let correct = [];
+  // Event delegation on cards container, listening to DOM elements inside with 'card' classname
   cardsContainer.addEventListener('click', (e) => {
     let clickedCard = e.target.parentElement;
     if (clickedCard.classList.contains('card')) {
@@ -171,6 +238,7 @@ const cardClickHandler = (size) => {
         clicked.length = 0;
         correct.push([clickedCard.dataset.name, clickedCard.dataset.name]);
       }
+      moveCounter();
     }
       console.log(match, clicked, correct, correct.length, size);
       if (correct.length === size && clicked.length === 0) {
@@ -178,6 +246,7 @@ const cardClickHandler = (size) => {
       }
   })
 }
+
 
 // Show modal with results if all cards pairs are flipped
 const showModal = () => {
@@ -205,25 +274,6 @@ const showModal = () => {
     document.querySelector('.container').appendChild(modal);
 }
 
-
-// Switch between selected tabs on each section
-const setSelection = () => {
-  const sectionWrappers = document.querySelectorAll('.section-wrapper');
-  const themeTabs = document.querySelectorAll('.theme .tab');
-  const sizeTabs = document.querySelectorAll('.size .tab');
-  sectionWrappers.forEach(wrapper => {
-    wrapper.addEventListener('click', (e) => {
-      if (e.target.classList.contains('theme-item')) {
-        themeTabs.forEach(tab => tab.classList.remove('selected'))
-        e.target.classList.add('selected')
-      } else if (e.target.classList.contains('size-item')) {
-        sizeTabs.forEach(tab => tab.classList.remove('selected'))
-        e.target.classList.add('selected')
-      }
-    })
-  });
-}
-
 // Generate random card value 
 const generateNumbers = (size) => {
   // let cardsArrLength = size;
@@ -249,8 +299,8 @@ const shuffleCards = (arr) => {
   return arr;
 }
 
-displaySelectionPage();
+const init = () => {
+  displaySelectionPage();
+}
 
-setSelection();
-
-// document.addEventListener('DOMContentLoaded', init)
+document.addEventListener('DOMContentLoaded', init)

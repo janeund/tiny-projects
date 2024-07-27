@@ -162,7 +162,7 @@ textarea, select {
   outline: none;
   border: none;
   cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
+  transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
 }
 
 .btn:hover {
@@ -190,6 +190,11 @@ textarea, select {
 .new-game-btn {
   background-color: #DFE7EC;
   color: var(--clr-primary-800);
+}
+
+.new-game-btn:hover {
+  background-color: var(--clr-primary-500);
+  color: var(--clr-neutral-100);
 }
 
 .restart-btn,
