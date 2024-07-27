@@ -215,18 +215,17 @@ textarea, select {
 
 .grid {
   display: grid;
+  max-width: 29rem;
   justify-items: center;
   margin-inline: auto;
   gap: 0.7rem;
 }
 
 .grid-4 {
-  max-width: 30.25rem;
   grid-template-columns: repeat(4, 1fr);
 }
 
 .grid-6 {
-  max-width: 32.75rem;
   grid-template-columns: repeat(6, 1fr);
 }
 

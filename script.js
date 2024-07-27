@@ -1,19 +1,18 @@
 // Issues list - TODO
 // fix (remove) hover effect on selection page tabs, which are already selected
 // fix timer bag (after starting new game, timer counts very fast)
-// fix counter bag (after restarting, counter return to 1, not 0, and only after first click, not immediately)
 // check values of moves and time elapsed on end game modal window
 // add responsive design, check sises (6X6 font size for is giant, and grid gap is too huge)
 
 const icons = [
   'plane', 'star', 'lemon', 'tree', 
   'umbrella', 'pen', 'cloud', 'mountain-sun', 
-  'plane', 'star', 'lemon', 'tree', 'umbrella', 
-  'pen', 'cloud', 'mountain-sun', 
-  'plane', 'star', 'lemon', 'tree', 'umbrella', 
-  'pen', 'cloud', 'mountain-sun', 
-  'plane', 'star', 'lemon', 'tree', 'umbrella', 
-  'pen', 'cloud', 'mountain-sun', 
+  'plane', 'star', 'lemon', 'tree', 
+  'umbrella', 'pen', 'cloud', 'mountain-sun', 
+  'plane', 'star', 'lemon', 'tree', 
+  'umbrella', 'pen', 'cloud', 'mountain-sun', 
+  'plane', 'star', 'lemon', 'tree', 
+  'umbrella', 'pen', 'cloud', 'mountain-sun', 
 ];
 
 // Moves counter
@@ -21,7 +20,7 @@ let movesCount = 0;
 const moveCounter = () => {
   const moves = document.querySelector('.moves')
   movesCount++;
-  moves.innerHTML = movesCount; 
+  moves.textContent = movesCount; 
 }
 
 // Init timer after start button clicked and grid of cards appeared
@@ -30,8 +29,9 @@ const timeCounter = () => {
   const min = document.getElementById('min');
   const sec = document.getElementById('sec');
   ++totalSec;
-  sec.innerHTML = pad(totalSec % 60);
-  min.innerHTML = pad(parseInt(totalSec / 60));
+  min.textContent = pad(parseInt(totalSec / 60));
+  sec.textContent = pad(totalSec % 60);
+  
 }
 
 // Validate timer (add 0s before min and sec values)
@@ -48,6 +48,8 @@ const pad = (val) => {
 const restart = () => {
   const cards = document.querySelectorAll('.card');
   cards.forEach(item => item.classList.remove('flipped'));
+  const moves = document.querySelector('.moves');
+  moves.textContent = 0
   totalSec = 0;
   movesCount = 0;
 }
