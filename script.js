@@ -1,6 +1,5 @@
 // Issues list - TODO
 // fix (remove) hover effect on selection page tabs, which are already selected
-// fix timer bag (after starting new game, timer counts very fast)
 // check values of moves and time elapsed on end game modal window
 // add responsive design, check sises (6X6 font size for is giant, and grid gap is too huge)
 
@@ -15,6 +14,8 @@ const icons = [
   'umbrella', 'pen', 'cloud', 'mountain-sun', 
 ];
 
+let timer = null;
+
 // Moves counter
 let movesCount = 0;
 const moveCounter = () => {
@@ -23,15 +24,18 @@ const moveCounter = () => {
   moves.textContent = movesCount; 
 }
 
-// Init timer after start button clicked and grid of cards appeared
+// Time up counter
 let totalSec = 0;
 const timeCounter = () => {
   const min = document.getElementById('min');
   const sec = document.getElementById('sec');
-  ++totalSec;
-  min.textContent = pad(parseInt(totalSec / 60));
-  sec.textContent = pad(totalSec % 60);
-  
+  totalSec = 0;
+  timer = setInterval(() => {
+    console.log(totalSec);
+    totalSec++;
+    min.innerHTML = pad(parseInt(totalSec / 60));
+    sec.innerHTML = pad(totalSec % 60);
+  }, 1000)
 }
 
 // Validate timer (add 0s before min and sec values)
@@ -56,6 +60,7 @@ const restart = () => {
 
 // Init new game
 const newGame = () => {
+  clearInterval(timer);
   displaySelectionPage();
   totalSec = 0;
   movesCount = 0;
@@ -130,6 +135,7 @@ const startGame = () => {
   })
   console.log(selectedTabs);
   displayGrid(selectedTabs.theme, selectedTabs.size);
+  timeCounter();
 }
 
 // Display game page content depending on options selected
@@ -212,8 +218,6 @@ const displayGrid = (theme, size) => {
   restartBtn.addEventListener('click', restart);
   newGameBtn.addEventListener('click', newGame);
   
-  
-  setInterval(timeCounter, 1000);
 }
 
 // Click on card
