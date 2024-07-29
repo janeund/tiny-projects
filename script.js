@@ -1,7 +1,7 @@
 // Issues list - TODO
 // fix (remove) hover effect on selection page tabs, which are already selected
 // check values of moves and time elapsed on end game modal window
-// add responsive design, check sises (6X6 font size for is giant, and grid gap is too huge)
+// add responsive design, check sizes (6X6 font size for is giant, and grid gap is too huge)
 
 const icons = [
   'plane', 'star', 'lemon', 'tree', 
